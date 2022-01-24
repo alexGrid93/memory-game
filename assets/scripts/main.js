@@ -7,8 +7,6 @@ scene.preload = function () {
 };
 
 scene.create = function () {
-  // 2. вывести бэкграунд
-  // this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'bg');
   this.add.sprite(0, 0, "bg").setOrigin(0, 0);
 
   const positionsForCards = scene.generateCardPosition();
@@ -21,16 +19,16 @@ scene.create = function () {
 scene.generateCardPosition = () => {
   // параметры картоки
   const card = {
-    width: 196 + 5,
-    height: 306 + 6,
-    paddingX: 20,
-    paddingY: 5,
+    width: 196,
+    height: 306,
+    marginRight: 10,
+    marginBottom: 10,
   };
 
   // размеры поля для расположения карточек
   const cardsArea = {
-    width: (card.width + card.paddingX) * config.cols,
-    height: (card.height + card.paddingY) * config.rows,
+    width: card.width * config.cols + (config.cols - 1) * card.marginRight,
+    height: card.height * config.rows + (config.rows - 1) * card.marginBottom,
   };
 
   // размеры отступов для карточки
@@ -45,8 +43,14 @@ scene.generateCardPosition = () => {
   for (let row = 0; row < config.rows; row++) {
     for (let col = 0; col < config.cols; col++) {
       positions.push({
-        x: offset.x + col * card.width,
-        y: offset.y + row * card.height,
+        x:
+          col === 0
+            ? offset.x + col * card.width
+            : offset.x + col * (card.width + card.marginRight),
+        y:
+          row === 0
+            ? offset.y + row * card.height
+            : offset.y + row * (card.height + card.marginBottom),
       });
     }
   }
