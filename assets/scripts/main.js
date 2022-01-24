@@ -44,13 +44,11 @@ scene.generateCardPosition = () => {
     for (let col = 0; col < config.cols; col++) {
       positions.push({
         x:
-          col === 0
-            ? offset.x + col * card.width
-            : offset.x + col * (card.width + card.marginRight),
+          offset.x +
+          col * (col === 0 ? card.width : card.width + card.marginRight),
         y:
-          row === 0
-            ? offset.y + row * card.height
-            : offset.y + row * (card.height + card.marginBottom),
+          offset.y +
+          row * (row === 0 ? card.height : card.height + card.marginBottom),
       });
     }
   }
